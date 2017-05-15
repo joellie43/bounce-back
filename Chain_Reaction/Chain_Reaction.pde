@@ -1,6 +1,7 @@
   Ball[] balls;
   //global boolean to tell whether reaction ahs been triggered
-  boolean reactionStarted;
+  boolean reactionStarted, click;
+  Ball chosen;
   
   //tasks to perform ONCE, at launch
   void setup(){
@@ -17,7 +18,22 @@
     background(0);
     for (int i = 0; i < balls.length; i++){
       balls[i].display();
+      
       balls[i].move();
+      if (reactionStarted){
+        for (Ball b: balls){
+          if (b.state == 1){
+            if( balls[i].distance(b) < ((balls[i].diameter / 2) + (b.diameter / 2))){
+              balls[i].state = 1;
+            }
+          }
+          if (balls[i].state ==1){
+            if( balls[i].distance(b) < ((balls[i].diameter / 2) + (b.diameter / 2))){
+              b.state = 1;
+            }
+          }
+    }
+  }
     }
   }
   
@@ -38,6 +54,9 @@
      
      chosenOne.vx = 0;
      chosenOne.vy = 0;
+     chosenOne.state = 1;
      
-     chosenOne.diameter = 100;
+     chosen = chosenOne;
+     
+     click = true;
    }

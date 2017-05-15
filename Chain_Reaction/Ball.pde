@@ -4,6 +4,8 @@ class Ball{
   float vx = 0;
   float vy = 0;
   color shade;
+  int state = 0; // if 1, part of reaction, if 0, not
+  boolean expand = false;
   
   Ball(){
      float r = random(256);
@@ -54,12 +56,37 @@ class Ball{
       y = diameter/2; //loest position possible
       vy *= -1;
     }
-  }
-  void expand(){
-    diameter++;
-  }
-    
-    void shrink(){
-      diameter--;
+    if (expand){
+      die();
     }
+    else if (state == 1){
+      expand();
+    }
+    
+  }
+  
+  void expand(){
+   if (diameter < 100){
+     diameter += 0.5;
+   }
+   else if (diameter == 100.0){
+     expand = true;
+  }
+  }
+  
+  void die(){
+    
+    if (diameter > 0){
+      diameter -= 0.5;
+    }
+    if (diameter == 0){
+      state = 0;
+    }
+  }
+  
+  float distance(Ball b){
+    float distance2 = abs(this.x - b.x) + abs(this.y - b.y);
+    float distance = sqrt(distance2);
+    return distance;
+  }
 }
