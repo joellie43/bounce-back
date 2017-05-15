@@ -55,4 +55,11 @@ class Ball{
       vy *= -1;
     }
   }
+  void expand(){
+    diameter++;
+  }
+    
+    void shrink(){
+      diameter--;
+    }
 }
